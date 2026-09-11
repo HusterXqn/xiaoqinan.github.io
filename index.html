@@ -1,0 +1,366 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>我的个人主页</title>
+    <meta name="description" content="一个简洁、现代、响应式的个人主页。" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+    <style>
+      :root {
+        --bg: #0f172a;
+        --bg-2: #111827;
+        --card: rgba(255,255,255,0.08);
+        --card-border: rgba(255,255,255,0.12);
+        --text: #e5e7eb;
+        --muted: #94a3b8;
+        --accent: #7c3aed;
+        --accent-2: #22c55e;
+        --shadow: 0 24px 80px rgba(0,0,0,0.35);
+      }
+
+      * { box-sizing: border-box; }
+      html { scroll-behavior: smooth; }
+      body {
+        margin: 0;
+        font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+        color: var(--text);
+        background:
+          radial-gradient(circle at top left, rgba(124,58,237,0.35), transparent 30%),
+          radial-gradient(circle at top right, rgba(34,197,94,0.25), transparent 28%),
+          linear-gradient(180deg, var(--bg), var(--bg-2));
+        min-height: 100vh;
+      }
+
+      .container {
+        width: min(1120px, calc(100% - 32px));
+        margin: 0 auto;
+      }
+
+      header {
+        padding: 28px 0;
+        position: sticky;
+        top: 0;
+        backdrop-filter: blur(16px);
+        background: rgba(15, 23, 42, 0.6);
+        border-bottom: 1px solid rgba(255,255,255,0.06);
+        z-index: 10;
+      }
+
+      .nav {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 20px;
+      }
+
+      .brand {
+        font-weight: 800;
+        letter-spacing: 0.02em;
+      }
+
+      .nav a {
+        color: var(--text);
+        text-decoration: none;
+        margin-left: 18px;
+        font-weight: 500;
+        color: var(--muted);
+      }
+
+      .nav a:hover { color: var(--text); }
+
+      .hero {
+        padding: 84px 0 56px;
+      }
+
+      .hero-grid {
+        display: grid;
+        grid-template-columns: 1.3fr 0.7fr;
+        gap: 28px;
+        align-items: center;
+      }
+
+      .badge {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        padding: 8px 14px;
+        border-radius: 999px;
+        background: rgba(255,255,255,0.08);
+        border: 1px solid var(--card-border);
+        color: var(--muted);
+        font-size: 14px;
+      }
+
+      h1 {
+        font-size: clamp(40px, 7vw, 72px);
+        line-height: 1.02;
+        margin: 18px 0 16px;
+      }
+
+      .lead {
+        max-width: 650px;
+        font-size: 18px;
+        line-height: 1.8;
+        color: var(--muted);
+      }
+
+      .actions {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 14px;
+        margin-top: 28px;
+      }
+
+      .btn {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        padding: 12px 18px;
+        border-radius: 14px;
+        text-decoration: none;
+        font-weight: 600;
+        border: 1px solid transparent;
+      }
+
+      .btn-primary {
+        background: linear-gradient(135deg, var(--accent), #2563eb);
+        color: white;
+        box-shadow: var(--shadow);
+      }
+
+      .btn-secondary {
+        color: var(--text);
+        border-color: var(--card-border);
+        background: rgba(255,255,255,0.04);
+      }
+
+      .profile-card, .section-card {
+        background: var(--card);
+        border: 1px solid var(--card-border);
+        border-radius: 24px;
+        box-shadow: var(--shadow);
+      }
+
+      .profile-card {
+        padding: 24px;
+      }
+
+      .avatar {
+        width: 100%;
+        aspect-ratio: 1 / 1;
+        border-radius: 20px;
+        background: linear-gradient(135deg, rgba(124,58,237,0.9), rgba(34,197,94,0.85));
+        display: grid;
+        place-items: center;
+        font-size: 64px;
+        font-weight: 800;
+        margin-bottom: 18px;
+      }
+
+      .stat-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 12px;
+        margin-top: 18px;
+      }
+
+      .stat {
+        padding: 14px;
+        border-radius: 18px;
+        background: rgba(255,255,255,0.06);
+        text-align: center;
+      }
+
+      .stat strong {
+        display: block;
+        font-size: 20px;
+      }
+
+      section {
+        padding: 24px 0 64px;
+      }
+
+      .section-title {
+        font-size: 28px;
+        margin: 0 0 18px;
+      }
+
+      .cards {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 18px;
+      }
+
+      .section-card {
+        padding: 22px;
+      }
+
+      .section-card h3 {
+        margin: 0 0 10px;
+        font-size: 18px;
+      }
+
+      .section-card p {
+        margin: 0;
+        line-height: 1.7;
+        color: var(--muted);
+      }
+
+      .tags {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+        margin-top: 14px;
+      }
+
+      .tag {
+        padding: 8px 12px;
+        border-radius: 999px;
+        background: rgba(255,255,255,0.07);
+        color: var(--text);
+        font-size: 13px;
+      }
+
+      .contact {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 14px;
+      }
+
+      footer {
+        padding: 24px 0 40px;
+        color: var(--muted);
+        text-align: center;
+      }
+
+      @media (max-width: 900px) {
+        .hero-grid, .cards { grid-template-columns: 1fr; }
+        .nav { flex-direction: column; align-items: flex-start; }
+      }
+    </style>
+  </head>
+  <body>
+    <header>
+      <div class="container nav">
+        <div class="brand">XiaoQiNan</div>
+        <nav>
+          <a href="#about">关于我</a>
+          <a href="#skills">技能</a>
+          <a href="#projects">项目</a>
+          <a href="#contact">联系我</a>
+        </nav>
+      </div>
+    </header>
+
+    <main class="container">
+      <section class="hero">
+        <div class="hero-grid">
+          <div>
+            <div class="badge">👋 你好，我是 HusterXqn</div>
+            <h1>用代码与创意，打造属于自己的数字名片。</h1>
+            <p class="lead">
+              欢迎来到我的个人主页！这里展示我的技能、项目和联系方式。
+              我喜欢用简洁、高效的方式把想法变成可落地的作品。
+            </p>
+            <div class="actions">
+              <a class="btn btn-primary" href="#projects">查看我的作品</a>
+              <a class="btn btn-secondary" href="#contact">联系我</a>
+            </div>
+          </div>
+
+          <aside class="profile-card">
+            <div class="avatar">XQ</div>
+            <h2 style="margin:0 0 8px;">HusterXqn</h2>
+            <p style="margin:0;color:var(--muted);line-height:1.7;">
+              前端 / 设计 / 创意开发
+            </p>
+            <div class="stat-grid">
+              <div class="stat"><strong>3+</strong><span>项目</span></div>
+              <div class="stat"><strong>5+</strong><span>技能</span></div>
+              <div class="stat"><strong>∞</strong><span>热爱</span></div>
+            </div>
+          </aside>
+        </div>
+      </section>
+
+      <section id="about">
+        <h2 class="section-title">关于我</h2>
+        <div class="section-card">
+          <p>
+            我是一名热爱学习和创造的人，关注前端开发、视觉表达和产品体验。
+            希望通过持续实践，做出更有价值、更漂亮的作品。
+          </p>
+        </div>
+      </section>
+
+      <section id="skills">
+        <h2 class="section-title">技能特长</h2>
+        <div class="cards">
+          <div class="section-card">
+            <h3>前端开发</h3>
+            <p>HTML、CSS、JavaScript，打造响应式、易维护的页面。</p>
+            <div class="tags">
+              <span class="tag">HTML</span>
+              <span class="tag">CSS</span>
+              <span class="tag">JavaScript</span>
+            </div>
+          </div>
+          <div class="section-card">
+            <h3>UI 设计</h3>
+            <p>关注视觉层次、色彩搭配和用户体验，让页面更好看也更好用。</p>
+            <div class="tags">
+              <span class="tag">Figma</span>
+              <span class="tag">排版</span>
+              <span class="tag">交互</span>
+            </div>
+          </div>
+          <div class="section-card">
+            <h3>持续成长</h3>
+            <p>保持学习节奏，尝试新技术，把想法变成真正可展示的成果。</p>
+            <div class="tags">
+              <span class="tag">学习</span>
+              <span class="tag">实践</span>
+              <span class="tag">优化</span>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="projects">
+        <h2 class="section-title">项目 / 作品</h2>
+        <div class="cards">
+          <div class="section-card">
+            <h3>个人主页</h3>
+            <p>当前展示的主页模板，简洁、现代、适合 GitHub Pages 部署。</p>
+          </div>
+          <div class="section-card">
+            <h3>作品展示页</h3>
+            <p>用于集中展示你的项目、截图、链接和成果说明。</p>
+          </div>
+          <div class="section-card">
+            <h3>学习笔记站</h3>
+            <p>记录技术学习、知识总结和成长轨迹的内容型页面。</p>
+          </div>
+        </div>
+      </section>
+
+      <section id="contact">
+        <h2 class="section-title">联系我</h2>
+        <div class="section-card">
+          <p>如果你想交流、合作，或者只是打个招呼，都欢迎联系我：</p>
+          <div class="contact">
+            <a class="btn btn-primary" href="mailto:your-email@example.com">发送邮件</a>
+            <a class="btn btn-secondary" href="https://github.com/HusterXqn" target="_blank" rel="noreferrer">GitHub</a>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer>
+      © 2026 HusterXqn · Built with ❤️ for GitHub Pages
+    </footer>
+  </body>
+</html>
